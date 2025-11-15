@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Blog Post</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div id="content"></div>
+
+    <!-- Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+    async function loadMarkdown() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const slug = urlParams.get('post');
+
+      const response = await fetch(`posts/${slug}.md`);
+      const markdown = await response.text();
+
+      document.getElementById("content").innerHTML = marked.parse(markdown);
+    }
+
+    loadMarkdown();
+    </script>
+  </body>
+</html>
+
